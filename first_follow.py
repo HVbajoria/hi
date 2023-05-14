@@ -80,12 +80,15 @@ def cal_first(s, productions):
                        
 def main():
     productions = {}
-    grammar = open("grammar9.txt", "r")
+    n = int(input("Enter number of productions: "))
     
     first = {}
     follow = {}
-    
-    for prod in grammar:
+    count = 1
+
+    while n!=0:
+        print("Enter grammar no "+str(count)+": ")
+        prod=input()
         l = re.split("( /->/\n/)*", prod)
         m = []
         for i in l:
@@ -107,6 +110,8 @@ def main():
         
         right_prod.append(t)
         productions[left_prod] = right_prod
+        count+=1
+        n-=1
     
     for s in productions.keys():
         first[s] = cal_first(s, productions)
@@ -126,8 +131,6 @@ def main():
     print("*****FOLLOW*****")
     for lhs, rhs in follow.items():
         print(lhs, ":" , rhs)
-    
-    grammar.close()
 
 if __name__ == "__main__":
     main()
